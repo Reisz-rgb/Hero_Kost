@@ -13,6 +13,7 @@ if (mysqli_num_rows($result) === 1) {
     if (password_verify($password, $user['password'])) {
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
+        $_SESSION['foto'] = $user['foto'];
 
         if ($user['role'] == 'pencari') {
             header("Location:index.php");

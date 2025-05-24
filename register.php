@@ -26,9 +26,10 @@
       <img src="assets/img/logo.png" class="w-8 h-8" alt="logo" />
     </div>
 
-    <form method="POST" action="auth_register.php" class="space-y-3">
+    <form method="POST" action="auth_register.php" enctype="multiple/form-data" class="space-y-3">
       <input name="username" type="text" placeholder="Username" class="w-full px-4 py-2 rounded-full outline-none text-sm" required>
       <input name="email" type="email" placeholder="Email" class="w-full px-4 py-2 rounded-full outline-none text-sm" required>
+      <input type="file" name="foto" accept="image/*" class="w-full text-sm bg-white py-1 rounded-full"/>
       <input name="password" type="password" placeholder="Password" class="w-full px-4 py-2 rounded-full outline-none text-sm" required>
       <input name="confirm" type="password" placeholder="Confirm Password" class="w-full px-4 py-2 rounded-full outline-none text-sm" required>
 

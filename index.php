@@ -8,13 +8,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans">
-  <!-- Navbar -->
-  <nav class="bg-green-900 text-white px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center space-x-2">
-      <div class="w-6 h-6 bg-white rounded-full"></div>
-      <span class="font-bold text-lg">Kost <span class="text-green-300">Hero</span></span>
-    </div>
-    <a href="login.php" class="hover:underline">Login</a>
+  <!-- Navbar -->  
+  <nav class="flex justify-between items-center bg-green-900 text-white px-6 py-4">
+    <h1 class="font-bold text-lg">Kost <span class="text-green-300">Hero</span></h1>
+
+    <?php if (isset($_SESSION['username'])): ?>
+      <a href="dashboard_<?php echo $_SESSION['role']; ?>.php">
+        <img src="uploads/<?php echo $_SESSION['foto'] ?? 'default.png'; ?>" 
+             alt="foto profil" 
+             class="w-10 h-10 rounded-full border-2 border-white object-cover"/>
+      </a>
+    <?php else: ?>
+      <a href="login_pencari.php" class="hover:underline">Login</a>
+    <?php endif; ?>
   </nav>
 
   <!-- Hero Section -->
