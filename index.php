@@ -52,14 +52,18 @@ session_start();
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-10">
   <?php while ($k = mysqli_fetch_assoc($kosts)): ?>
     <div class="bg-white shadow rounded overflow-hidden">
-      <a href="detail_kos.php?id=<?= $row['id'] ?>">
-      <img src="uploads/<?= $k['foto'] ?>" class="h-40 w-full object-cover">
-      <div class="p-4">
-        <h3 class="font-semibold text-lg"><?= htmlspecialchars($k['nama']) ?></h3>
-        <p class="text-sm text-gray-600"><?= $k['lokasi'] ?></p>
-        <p class="text-green-600 font-bold mt-1">Rp <?= number_format($k['harga'], 0, ',', '.') ?></p>
-      </div>
-      </a>
+<a href="detail_kos.php?id=<?= htmlspecialchars($k['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+  <img src="uploads/<?= htmlspecialchars(basename($k['foto'] ?? 'default.jpg'), ENT_QUOTES, 'UTF-8') ?>" 
+       class="h-40 w-full object-cover"
+       alt="Gambar kos <?= htmlspecialchars($k['nama'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+  <div class="p-4">
+    <h3 class="font-semibold text-lg"><?= htmlspecialchars($k['nama'] ?? '', ENT_QUOTES, 'UTF-8') ?></h3>
+    <p class="text-sm text-gray-600"><?= htmlspecialchars($k['lokasi'] ?? '', ENT_QUOTES, 'UTF-8') ?></p>
+    <p class="text-green-600 font-bold mt-1">
+      Rp <?= isset($k['harga']) ? number_format((int)$k['harga'], 0, ',', '.') : '0' ?>
+    </p>
+  </div>
+</a>
     </div>
   <?php endwhile; ?>
 </div>

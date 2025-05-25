@@ -1,21 +1,36 @@
 <?php
 include "koneksi.php";
 
-if (!isset($_GET['id'])) {
-  echo "ID kos tidak ditemukan.";
+// Validasi input
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+  http_response_code(400);
+  echo "kos tidak ditemukan.";
   exit;
 }
 
 $id = intval($_GET['id']);
-$query = "SELECT * FROM kost WHERE id = $id";
-$result = mysqli_query($conn, $query);
+
+// Gunakan prepared statement
+$query = "SELECT * FROM kost WHERE id = ?";
+$stmt = mysqli_prepare($conn, $query);
+mysqli_stmt_bind_param($stmt, "i", $id);
+
+if (!mysqli_stmt_execute($stmt)) {
+  http_response_code(500);
+  echo "Terjadi kesalahan dalam pencarian.";
+  exit;
+}
+
+$result = mysqli_stmt_get_result($stmt);
 
 if (mysqli_num_rows($result) !== 1) {
+  http_response_code(404);
   echo "Kos tidak ditemukan.";
   exit;
 }
 
 $kos = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
 ?>
 
 <!DOCTYPE html>
